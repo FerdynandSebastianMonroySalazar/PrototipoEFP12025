@@ -2,16 +2,14 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include <string>
 
-class Menu
-{
-    public:
-        Menu();
-        virtual ~Menu();
-
-    protected:
-
-    private:
+class Menu {
+public:
+    static void mostrarMenuPrincipal(const std::string& usuario, const std::string& carnet, const std::string& nombre);
+    static void mostrarMenuCatalogo();
+    static void mostrarMenuSeguridad();
 };
 
-#endif // MENU_H
+#endif
+
