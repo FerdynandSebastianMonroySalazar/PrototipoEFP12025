@@ -2,13 +2,9 @@
 #ifndef BITACORA_H
 #define BITACORA_H
 
-#include <string>
-#include <ctime>
-
 class Bitacora {
 public:
-    static void registrarAccion(const std::string& usuario, const std::string& accion, const std::string& appCode);
+    static void registrarAccion(const char* usuario, const char* accion, const char* codigo);
 };
 
 #endif
-

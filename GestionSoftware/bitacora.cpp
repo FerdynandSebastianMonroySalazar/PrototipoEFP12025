@@ -1,19 +1,17 @@
 //Ferdynand Monroy 9959 24 14049 Mayo 2025
 #include "Bitacora.h"
 #include <fstream>
-#include <iostream>
+#include <ctime>
 
-void Bitacora::registrarAccion(const std::string& usuario, const std::string& accion, const std::string& appCode) {
-    std::ofstream archivo("logs/bitacora.dat", std::ios::app | std::ios::binary);
+void Bitacora::registrarAccion(const char* usuario, const char* accion, const char* codigo) {
+    std::ofstream archivo("logs/bitacora.dat", std::ios::app);
     if (archivo.is_open()) {
         time_t now = time(0);
-        char* dt = ctime(&now);
+        char* dt = ctime(&now); // ya incluye \n
         archivo << "Usuario: " << usuario
                 << " | Acción: " << accion
-                << " | Código: " << appCode
+                << " | Código: " << codigo
                 << " | Fecha y hora: " << dt;
         archivo.close();
-    } else {
-        std::cerr << "Error al registrar en la bitácora.\n";
     }
 }

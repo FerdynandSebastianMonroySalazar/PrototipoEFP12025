@@ -3,13 +3,11 @@
 #define MENU_H
 
 #include <string>
+using namespace std;
 
 class Menu {
 public:
-    static void mostrarMenuPrincipal(const std::string& usuario, const std::string& carnet, const std::string& nombre);
-    static void mostrarMenuCatalogo();
-    static void mostrarMenuSeguridad();
+    static void mostrarMenuPrincipal(const char* usuario, const char* carnet, const char* nombre);
 };
 
 #endif
-

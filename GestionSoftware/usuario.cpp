@@ -1,32 +1,27 @@
 //Ferdynand Monroy 9959 24 14049 Mayo 2025
 #include "Usuario.h"
+#include <cstring>
 #include <iostream>
 
-Usuario::Usuario() {}
-
-Usuario::Usuario(std::string nombre, std::string carnet, std::string username, std::string password) {
-    this->nombre = nombre;
-    this->carnet = carnet;
-    this->username = username;
-    this->password = password;
+Usuario::Usuario() {
+    std::memset(nombre, 0, sizeof(nombre));
+    std::memset(carnet, 0, sizeof(carnet));
+    std::memset(username, 0, sizeof(username));
+    std::memset(password, 0, sizeof(password));
 }
 
-std::string Usuario::getNombre() {
-    return nombre;
+Usuario::Usuario(const char* nom, const char* car, const char* user, const char* pass) {
+    std::strncpy(nombre, nom, sizeof(nombre));
+    std::strncpy(carnet, car, sizeof(carnet));
+    std::strncpy(username, user, sizeof(username));
+    std::strncpy(password, pass, sizeof(password));
 }
 
-std::string Usuario::getCarnet() {
-    return carnet;
-}
+const char* Usuario::getNombre() const { return nombre; }
+const char* Usuario::getCarnet() const { return carnet; }
+const char* Usuario::getUsername() const { return username; }
+const char* Usuario::getPassword() const { return password; }
 
-std::string Usuario::getUsername() {
-    return username;
-}
-
-std::string Usuario::getPassword() {
-    return password;
-}
-
-void Usuario::mostrarDatos() {
+void Usuario::mostrarDatos() const {
     std::cout << "Nombre: " << nombre << " | Carnet: " << carnet << std::endl;
 }

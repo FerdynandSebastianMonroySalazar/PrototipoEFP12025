@@ -2,22 +2,23 @@
 #ifndef USUARIO_H
 #define USUARIO_H
 
-#include <string>
-
 class Usuario {
 private:
-    std::string nombre;
-    std::string carnet;
-    std::string username;
-    std::string password;
+    char nombre[30];
+    char carnet[10];
+    char username[15];
+    char password[15];
 public:
-    Usuario();
-    Usuario(std::string, std::string, std::string, std::string);
-    std::string getNombre();
-    std::string getCarnet();
-    std::string getUsername();
-    std::string getPassword();
-    void mostrarDatos();
+    Usuario(); // Constructor por defecto
+    Usuario(const char*, const char*, const char*, const char*);
+
+    const char* getNombre() const;
+    const char* getCarnet() const;
+    const char* getUsername() const;
+    const char* getPassword() const;
+
+    void mostrarDatos() const;
 };
 
 #endif
+

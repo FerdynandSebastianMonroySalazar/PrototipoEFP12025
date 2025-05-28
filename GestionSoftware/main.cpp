@@ -1,34 +1,38 @@
 //Proyecto examen final Programación I por Ferdynand Monroy 9959 24 14049 Mayo 2025
 //Main de todo el programa
+// Proyecto examen final Programación I por Ferdynand Monroy 9959 24 14049 Mayo 2025
+// Main de todo el programa
+// Proyecto examen final Programación I - Ferdynand Monroy 9959 24 14049 - Mayo 2025
+// Archivo principal del programa
+
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <string>
-#include <cstdlib>
+#include <cstring>
 #include "Usuario.h"
 #include "Menu.h"
 #include "Bitacora.h"
-#include "Catalogo.h"
 
 using namespace std;
 
-//Funciones
-bool autenticarUsuario(Usuario &usuarioAutenticado) {
-    string username, password;
-    cout << "Ingrese su nombre de usuario: ";
-    cin >> username;
-    cout << "Ingrese su contraseña: ";
-    cin >> password;
+// Función para autenticar usuario desde archivo binario
+bool autenticarUsuario(Usuario& usuarioAutenticado) {
+    char inputUser[15], inputPass[15];
+    cout << "=== INICIO DE SESIÓN ===" << endl;
+    cout << "Usuario: ";
+    cin >> inputUser;
+    cout << "Contraseña: ";
+    cin >> inputPass;
 
     ifstream file("bin/usuarios.dat", ios::binary);
-    if (!file) {
-        cerr << "Error al abrir archivo de usuarios.\n";
+    if (!file.is_open()) {
+        cerr << "No se pudo abrir el archivo binario de usuarios.\n";
         return false;
     }
 
     Usuario temp;
     while (file.read(reinterpret_cast<char*>(&temp), sizeof(Usuario))) {
-        if (temp.getUsername() == username && temp.getPassword() == password) {
+        if (strcmp(temp.getUsername(), inputUser) == 0 &&
+            strcmp(temp.getPassword(), inputPass) == 0) {
             usuarioAutenticado = temp;
             file.close();
             return true;
@@ -39,97 +43,64 @@ bool autenticarUsuario(Usuario &usuarioAutenticado) {
     return false;
 }
 
-void menuCatalogo(const string& usuario) {
+// Función para mostrar el menú principal
+void mostrarMenuPrincipal(Usuario usuario) {
     int opcion;
     do {
-        Menu::mostrarMenuCatalogo();
+        Menu::mostrarMenuPrincipal(usuario.getUsername(), usuario.getCarnet(), usuario.getNombre());
+        cout << "Seleccione una opción: ";
         cin >> opcion;
+
         switch (opcion) {
             case 1:
-                cout << "Funcionalidad de agregar producto.\n";
-                Bitacora::registrarAccion(usuario, "Agregar producto", "CAT001");
+                cout << "\nEntrando a Catálogos...\n";
+                Bitacora::registrarAccion(usuario.getUsername(), "Entró al submenú de catálogos", "CAT001");
                 break;
-            case 2:
-                cout << "Mostrar productos...\n";
-                Bitacora::registrarAccion(usuario, "Mostrar productos", "CAT002");
-                break;
-            case 3:
-                cout << "Buscar producto...\n";
-                Bitacora::registrarAccion(usuario, "Buscar producto", "CAT003");
-                break;
-            case 4:
-                cout << "Modificar producto...\n";
-                Bitacora::registrarAccion(usuario, "Modificar producto", "CAT004");
-                break;
-            case 5:
-                cout << "Eliminar producto...\n";
-                Bitacora::registrarAccion(usuario, "Eliminar producto", "CAT005");
-                break;
-            case 6:
-                cout << "Regresando...\n";
-                break;
-            default:
-                cout << "Opción inválida.\n";
-        }
-    } while (opcion != 6);
-}
 
-void menuSeguridad() {
-    int opcion;
-    do {
-        Menu::mostrarMenuSeguridad();
-        cin >> opcion;
-        switch (opcion) {
-            case 1: {
+            case 2:
+                cout << "\nGenerando informe (simulado)...\n";
+                Bitacora::registrarAccion(usuario.getUsername(), "Generó informe", "INF001");
+                break;
+
+            case 3: {
+                cout << "\n--- Bitácora de Seguridad ---\n";
                 ifstream bitacora("logs/bitacora.dat");
+                if (!bitacora.is_open()) {
+                    cout << "No se pudo abrir la bitácora.\n";
+                    break;
+                }
                 string linea;
                 while (getline(bitacora, linea)) {
                     cout << linea << endl;
                 }
                 bitacora.close();
+                Bitacora::registrarAccion(usuario.getUsername(), "Consultó bitácora", "SEG002");
                 break;
             }
-            case 2:
-                cout << "Regresando...\n";
-                break;
-            default:
-                cout << "Opción inválida.\n";
-        }
-    } while (opcion != 2);
-}
 
-int main() {
-    Usuario usuarioActual;
-
-    cout << "===== SISTEMA DE AUTENTICACIÓN =====\n";
-    if (!autenticarUsuario(usuarioActual)) {
-        cout << "Usuario o contraseña incorrectos.\n";
-        return 1;
-    }
-
-    system("cls");
-    int opcion;
-    do {
-        Menu::mostrarMenuPrincipal(usuarioActual.getUsername(), usuarioActual.getCarnet(), usuarioActual.getNombre());
-        cin >> opcion;
-        switch (opcion) {
-            case 1:
-                menuCatalogo(usuarioActual.getUsername());
-                break;
-            case 2:
-                cout << "Generando informe en TXT...\n";
-                Bitacora::registrarAccion(usuarioActual.getUsername(), "Generar informe", "INF001");
-                break;
-            case 3:
-                menuSeguridad();
-                break;
             case 4:
-                cout << "Saliendo del sistema...\n";
+                cout << "\nSaliendo del sistema...\n";
+                Bitacora::registrarAccion(usuario.getUsername(), "Cerró sesión", "SAL001");
                 break;
+
             default:
-                cout << "Opción inválida.\n";
+                cout << "Opción inválida. Intente de nuevo.\n";
+                break;
         }
     } while (opcion != 4);
-
-    return 0;
 }
+
+// Función principal: punto de entrada del programa
+//int main() { //comentado por problemas
+   // Usuario usuario;
+
+//  if (autenticarUsuario(usuario)) {
+   //     cout << "\nAcceso concedido. Bienvenido, " << usuario.getNombre() << "!" << endl;
+     //   Bitacora::registrarAccion(usuario.getUsername(), "Ingreso al sistema", "SEG001");
+       // mostrarMenuPrincipal(usuario);
+    //} else {
+      //  cout << "\nError: Usuario o contraseña incorrectos.\n";
+    //}
+
+//    return 0;
+// }

@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1748450248 source:c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\bitacora.cpp
+	"Bitacora.h"
+	<fstream>
+	<ctime>
+
+1748450206 c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\bitacora.h
+
+1748448483 source:c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\catalogo.cpp
+	"Catalogo.h"
+	<iostream>
+
+1748448453 c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\catalogo.h
+	<string>
+
+1748450958 source:c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\main.cpp
+	<iostream>
+	<fstream>
+	<cstring>
+	"Usuario.h"
+	"Menu.h"
+	"Bitacora.h"
+
+1748450045 c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\usuario.h
+
+1748450984 c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\menu.h
+	<string>
+
+1748448785 source:c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\menu.cpp
+	"Menu.h"
+	<iostream>
+
+1748450059 source:c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\usuario.cpp
+	"Usuario.h"
+	<cstring>
+	<iostream>
+
+1748449738 source:c:\users\ferit\desktop\prototipoefp12025\prototipoefp12025\gestionsoftware\crear_usuario.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cstring>
+
